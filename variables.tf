@@ -1,10 +1,7 @@
-variable "subnets" {
-  type    = map(string)
-  # this is based on default network's config
-  default = {
-    us-central1	             = "10.128.0.0/20"
-    us-east1                 = "10.142.0.0/20"
-  }
+variable "subnet_cidr" {
+  type        = string
+  default     = "10.128.0.0/20"
+  description = "Subnet CIDR to create for the location in the VPC."
 }
 
 variable "cluster_name" {
