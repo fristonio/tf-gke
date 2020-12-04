@@ -69,6 +69,6 @@ variable "svc_account_key" {
 
   validation {
       condition   = can(base64decode(var.svc_account_key))
-      description = "The service account key is not in base64 encoded format."
+      error_message = "The service account key is not in base64 encoded format."
   }
 }
