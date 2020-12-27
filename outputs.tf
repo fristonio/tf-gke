@@ -12,3 +12,8 @@ output "cluster_endpoint" {
   value       = google_container_cluster.k8s_cluster.endpoint
   description = "Management GKE cluster endpoint"
 }
+
+output "cluster_kubeconfig" {
+  value       = base64encode(data.template_file.kubeconfig.rendered)
+  description = "Base64 encoded version of cluster kubeconfig"
+}
