@@ -29,7 +29,7 @@ variable "node_machine_type" {
   description = "GCP machine type to use for the Kubernetes cluster node"
 
   validation {
-    condition     = contains(["n1-standard-4", "n2-standard-2"], var.node_machine_type)
+    condition     = contains(["n1-standard-8", "n1-standard-4", "n1-standard-2", "n1-standard-1"], var.node_machine_type)
     error_message = "Node machine type for the cluster must be from the predefined list."
   }
 }
