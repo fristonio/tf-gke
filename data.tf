@@ -1,7 +1,7 @@
 data "template_file" "kubeconfig" {
   template = file("${path.module}/kubeconfig.tpl")
 
-  vars {
+  vars = {
     cluster_name           = var.cluster_name
     cluster_endpoint       = google_container_cluster.k8s_cluster.endpoint
 
