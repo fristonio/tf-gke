@@ -40,6 +40,8 @@ resource "google_container_node_pool" "k8s_cluster" {
   location           = var.cluster_location
   cluster            = google_container_cluster.k8s_cluster.name
 
+  node_locations = toset(var.node_zones)
+
   node_count = tonumber(var.node_count)
 
   node_config {

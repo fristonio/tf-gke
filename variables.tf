@@ -19,8 +19,18 @@ variable "cluster_location" {
   description = "Location to create the GKE clsuter in."
 
   validation {
-    condition     = contains(["us-central1", "us-east1"], var.cluster_location)
+    condition     = contains(["us-central1", "us-east1", "us-west1"], var.cluster_location)
     error_message = "Cluster location must be from a predefined list for which we have subnets defined."
+  }
+}
+
+variable "node_zones" {
+  type    = list(string)
+  description = "A list of zones in the location provided in which to launch the nodes."
+
+  validation {
+    condition     = length(var.node_zones) < 4 && length(var.node_zones) > 0
+    error_message = "The number of availability zones must be between [0, 3]."
   }
 }
 
