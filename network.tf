@@ -11,6 +11,8 @@ resource "google_compute_network" "k8s_cluster_vpc" {
 resource "google_compute_subnetwork" "k8s_cluster_subnets" {
   provider = google-beta
 
+  depends_on = [ google_compute_network.k8s_cluster_vpc ]
+
   name          = var.cluster_location
   region        = var.cluster_location
   ip_cidr_range = var.subnet_cidr
