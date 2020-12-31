@@ -36,6 +36,11 @@ resource "google_container_cluster" "k8s_cluster" {
 resource "google_container_node_pool" "k8s_cluster" {
   provider = google-beta
 
+  depends_on = [ 
+    google_compute_network.k8s_cluster_vpc,
+    google_compute_subnetwork.k8s_cluster_subnets
+  ]
+
   name               = "${var.cluster_name}-np"
   location           = var.cluster_location
   cluster            = google_container_cluster.k8s_cluster.name

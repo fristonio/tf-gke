@@ -1,6 +1,8 @@
 data "google_client_config" "default" {}
 
 provider "kubernetes" {
+  alias  = "gke_cluster"
+
   load_config_file = false
 
   host = "https://${google_container_cluster.k8s_cluster.endpoint}"
@@ -13,6 +15,10 @@ provider "kubernetes" {
 # client user which have no access in the cluster.
 # Create a cluster role binding which binds this user to the cluster-admin.
 resource "kubernetes_cluster_role_binding" "kubeconfig_client" {
+  provider = kuberentes.gke_cluster
+
+  depends_on = [ google_container_cluster.k8s_cluster ]
+
   metadata {
     name = "cluster-access-client-binding"
   }
