@@ -55,13 +55,13 @@ variable "node_image_type" {
 }
 
 variable "node_count" {
-  type        = string
-  default     = "1"
+  type        = number
+  default     = 1
   description = "Number of worker nodes in the Kubernetes cluster."
 
   validation {
-    condition     = can(tonumber(var.node_count)) && tonumber(var.node_count) > 0 && tonumber(var.node_count) < 5
-    error_message = "Node count for the cluster must be between 0-5."
+    condition     = var.node_count > 0 && var.node_count < 100
+    error_message = "Node count for the cluster must be between 0-100."
   }
 }
 

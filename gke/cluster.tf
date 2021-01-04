@@ -36,7 +36,7 @@ resource "google_container_cluster" "k8s_cluster" {
 resource "google_container_node_pool" "k8s_cluster" {
   provider = google-beta
 
-  depends_on = [ 
+  depends_on = [
     google_compute_network.k8s_cluster_vpc,
     google_compute_subnetwork.k8s_cluster_subnets
   ]
@@ -47,7 +47,7 @@ resource "google_container_node_pool" "k8s_cluster" {
 
   node_locations = toset(var.node_zones)
 
-  node_count = tonumber(var.node_count)
+  node_count = var.node_count
 
   node_config {
     machine_type = var.node_machine_type

@@ -27,7 +27,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | cluster\_location | Location to create the GKE clsuter in. | `string` | n/a | yes |
 | cluster\_name | Name of the GKE cluster. | `string` | n/a | yes |
-| node\_count | Number of worker nodes in the Kubernetes cluster. | `string` | `"1"` | no |
+| node\_count | Number of worker nodes in the Kubernetes cluster. | `number` | `1` | no |
 | node\_image\_type | Image to use for the Kubernetes node | `string` | n/a | yes |
 | node\_machine\_type | GCP machine type to use for the Kubernetes cluster node | `string` | n/a | yes |
 | node\_zones | A list of zones in the location provided in which to launch the nodes. | `list(string)` | n/a | yes |
