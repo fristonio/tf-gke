@@ -14,18 +14,17 @@ meets all the requirements for an EKS cluster, listed
 
 ## Cluster
 
-To run the cluster there are currently two ways configured. The first is a
-more granular process while the other makes use of an external terraform
-module to spin the entire cluster.
+Module for creating EKS cluster on AWS.
 
-### AWS terraform provider
-
-This method for more granular use is broken down into two steps.
-
-#### K8s controlplane
+### K8s controlplane
 
 The module for configuring the EKS control plane lives [here](./controlplane).
 
-#### K8s nodegroup
+### K8s nodegroup
 
 The module for configuring the EKS NodeGroup lives [here](./nodegroup).
+
+### Complete K8s Cluster
+
+The module for configuring the entire EKS cluster using a single module
+lives [here](./cluster).

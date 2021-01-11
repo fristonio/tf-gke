@@ -46,9 +46,11 @@ module "vpc" {
     "kubernetes.io/role/internal-elb" = "1"
   }
 
-  tags = {
-    Owner       = "terraform"
-    Environment = "eks-test-clusters"
-    Controller  = "terraform-controller"
-  }
+  tags = merge(
+    var.tags,
+    {
+      Owner       = "terraform"
+      Environment = "eks-clusters"
+    },
+  )
 }

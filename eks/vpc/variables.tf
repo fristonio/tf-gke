@@ -41,3 +41,9 @@ variable "vpc_cidr" {
     error_message = "CIDR must be a valid cidr, for example 10.0.0.0/16."
   }
 }
+
+variable "tags" {
+  default     = {}
+  description = "Additional tags to associate with the resources."
+  type        = map(string)
+}
