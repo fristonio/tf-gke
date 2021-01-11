@@ -4,6 +4,7 @@
 CI cluster for Cilium using terraform-controller.
 
 * [GKE managed K8s cluster](/gke)
+* [EKS managed K8s cluster](/eks)
 
 ## Note
 
