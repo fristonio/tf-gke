@@ -32,7 +32,7 @@ variable "cluster_name" {
 
 variable "kubernetes_version" {
   type        = string
-  description = "Kuberentes version to use for the EKS cluster."
+  description = "Kubernetes version to use for the EKS cluster."
 
   validation {
     condition     = contains(["1.17", "1.16", "1.15"], var.kubernetes_version)

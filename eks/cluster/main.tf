@@ -59,8 +59,26 @@ resource "aws_iam_role_policy_attachment" "eks_ng_AmazonEC2ContainerRegistryRead
   role       = aws_iam_role.eks_ng.name
 }
 
+resource "aws_eks_cluster" "eks_cluster" {
+  name     = var.cluster_name
+  role_arn = aws_iam_role.eks_cluster.arn
+  version  = var.kubernetes_version
+
+  vpc_config {
+    subnet_ids = var.subnets
+  }
+
+  # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
+  # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSVPCResourceController,
+  ]
+}
+
 resource "aws_eks_node_group" "eks_ng" {
   cluster_name    = var.cluster_name
+
   node_group_name = "${var.cluster_name}-ng"
   node_role_arn   = aws_iam_role.eks_ng.arn
 
@@ -85,22 +103,7 @@ resource "aws_eks_node_group" "eks_ng" {
     aws_iam_role_policy_attachment.eks_ng_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.eks_ng_AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.eks_ng_AmazonEC2ContainerRegistryReadOnly,
-  ]
-}
 
-resource "aws_eks_cluster" "eks_cluster" {
-  name     = var.cluster_name
-  role_arn = aws_iam_role.eks_cluster.arn
-  version  = var.kubernetes_version
-
-  vpc_config {
-    subnet_ids = var.subnets
-  }
-
-  # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
-  # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.eks_cluster_AmazonEKSVPCResourceController,
+    aws_eks_cluster.eks_cluster
   ]
 }

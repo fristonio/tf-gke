@@ -9,12 +9,12 @@ output "ng_id" {
 }
 
 output "cluster_kubeconfig" {
-  value       = <<EOT
+  value       = base64encode(<<EOT
 apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: ${data.aws_eks_cluster.cluster.certificate_authority[0].data}
-    server: https://${data.aws_eks_cluster.cluster.endpoint}
+    server: ${data.aws_eks_cluster.cluster.endpoint}
   name: kube-client
 contexts:
 - context:
@@ -29,5 +29,6 @@ users:
   user:
     token: ${data.kubernetes_secret.kubecfg.data.token}
 EOT
+)
   description = "Kubeconfig to access the kubernetes cluster."
 }

@@ -67,7 +67,7 @@ variable "node_count" {
 
 variable "project_id" {
   type        = string
-  description = "GCP project to create the Kuberentes cluster in"
+  description = "GCP project to create the Kubernetes cluster in"
 }
 
 variable "svc_account_key" {

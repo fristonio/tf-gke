@@ -15,7 +15,7 @@ provider "kubernetes" {
 # client user which have no access in the cluster.
 # Create a cluster role binding which binds this user to the cluster-admin.
 resource "kubernetes_cluster_role_binding" "kubeconfig_client" {
-  provider = kuberentes.gke_cluster
+  provider = kubernetes.gke_cluster
 
   depends_on = [ google_container_cluster.k8s_cluster ]
 

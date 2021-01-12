@@ -7,7 +7,7 @@ provider "kubernetes" {
 
   load_config_file = false
 
-  host = "https://${aws_eks_cluster.eks_cluster.endpoint}"
+  host = aws_eks_cluster.eks_cluster.endpoint
   token = data.aws_eks_cluster_auth.cluster.token
 
   cluster_ca_certificate = base64decode(aws_eks_cluster.eks_cluster.certificate_authority[0].data)
@@ -15,7 +15,7 @@ provider "kubernetes" {
 
 
 resource "kubernetes_service_account" "kubeconfig_sa" {
-  provider = kuberentes.eks_cluster
+  provider = kubernetes.eks_cluster
 
   metadata {
     name      = "cluster-access-client-sa"
@@ -24,7 +24,7 @@ resource "kubernetes_service_account" "kubeconfig_sa" {
 }
 
 resource "kubernetes_cluster_role_binding" "kubeconfig_client" {
-  provider = kuberentes.eks_cluster
+  provider = kubernetes.eks_cluster
 
   depends_on = [ kubernetes_service_account.kubeconfig_sa ]
 
@@ -46,7 +46,7 @@ resource "kubernetes_cluster_role_binding" "kubeconfig_client" {
 }
 
 data "kubernetes_service_account" "kubecfg" {
-  provider = kuberentes.eks_cluster
+  provider = kubernetes.eks_cluster
 
   depends_on = [ kubernetes_cluster_role_binding.kubeconfig_client ]
 
@@ -57,7 +57,7 @@ data "kubernetes_service_account" "kubecfg" {
 }
 
 data "kubernetes_secret" "kubecfg" {
-  provider = kuberentes.eks_cluster
+  provider = kubernetes.eks_cluster
 
   metadata {
     name      = data.kubernetes_service_account.kubecfg.default_secret_name

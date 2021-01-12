@@ -18,7 +18,7 @@ No requirements.
 |------|---------|
 | google | n/a |
 | google-beta | n/a |
-| kuberentes.gke\_cluster | n/a |
+| kubernetes.gke\_cluster | n/a |
 | template | n/a |
 
 ## Inputs
@@ -31,7 +31,7 @@ No requirements.
 | node\_image\_type | Image to use for the Kubernetes node | `string` | n/a | yes |
 | node\_machine\_type | GCP machine type to use for the Kubernetes cluster node | `string` | n/a | yes |
 | node\_zones | A list of zones in the location provided in which to launch the nodes. | `list(string)` | n/a | yes |
-| project\_id | GCP project to create the Kuberentes cluster in | `string` | n/a | yes |
+| project\_id | GCP project to create the Kubernetes cluster in | `string` | n/a | yes |
 | subnet\_cidr | Subnet CIDR to create for the location in the VPC. | `string` | `"10.128.0.0/20"` | no |
 | svc\_account\_key | Service account key in Base64 encoded format. | `string` | n/a | yes |
 
