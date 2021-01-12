@@ -97,7 +97,7 @@ variable "instance_type" {
   description = "Instance type to use for instance in the nodegroup."
 
   validation {
-    condition     = contains(["t3.medium", "t3.small", "t2.medium", "t2.large", "t3.large"], var.instance_type)
+    condition     = contains(["t3.small", "t3.medium", "t3.large", "t3.xlarge"], var.instance_type)
     error_message = "Instance type for the node should be from a predefined list of instance types."
   }
 }
