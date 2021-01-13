@@ -8,7 +8,7 @@ output "public_subnet_ids" {
   description = "IDs of the associated public subnets."
 }
 
-output "private_subnet_ids" {
-  value       = module.vpc.private_subnets
-  description = "IDs of the associated private subnets for VPC."
+output "clusters_subnets" {
+  value        = chunklist(module.vpc.private_subnets, 3)
+  descriptions = "A list of subnet ids that can be used for creating EKS clusters."
 }

@@ -3,19 +3,8 @@ output "cluster_name" {
   description = "Name of the created EKS cluster"
 }
 
-output "nodegroup_id" {
-  value       = aws_eks_node_group.eks_ng.id
-  description = "ID of the created EKS nodegroup."
-}
-
-
-output "cluster_version" {
-  value       = aws_eks_cluster.eks_cluster.version
-  description = "Version of the created EKS cluster"
-}
-
 output "cluster_endpoint" {
-  value       = aws_eks_cluster.eks_cluster.endpoint
+  value       = data.aws_eks_cluster.cluster.endpoint
   description = "Endpoint for the created EKS cluster."
   sensitive   = true
 }

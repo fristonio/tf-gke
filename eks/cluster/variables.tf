@@ -20,6 +20,18 @@ variable "aws_secret_key" {
   sensitive   = true
 }
 
+variable "vpc_configured" {
+  type        = bool
+  description = "Specifies if the VPC has already been created or not."
+  default     = false
+}
+
+variable "controlplane_configured" {
+  type        = bool
+  description = "Specifies if the K8s controlplane has already been created or not."
+  default     = false
+}
+
 variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster."
@@ -30,6 +42,34 @@ variable "cluster_name" {
   }
 }
 
+variable "cluster_index" {
+  type        = number
+  description = "Index of the cluster if using multiple clusters within the same VPC."
+  default     = 0
+
+  validation {
+    condition  = var.cluster_index >= 0 && var.cluster_index < 8
+    description = "A maximum of 8 clusters can be created within this vpc, index must be in [0, 8)."
+  }
+}
+
+variable "subnets" {
+  type        = list(string)
+  description = "A list of subnet IDs to associate with the EKS cluster node group."
+  default     = []
+
+  validation {
+    condition   = var.vpc_configured || length(var.subnets) > 0
+    description = "If the VPC is not configured then subnets length must be greater than 0."
+  }
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "CIDR to use for the VPC."
+  default     = "10.0.0.0/16"
+}
+
 variable "kubernetes_version" {
   type        = string
   description = "Kubernetes version to use for the EKS cluster."
@@ -37,16 +77,6 @@ variable "kubernetes_version" {
   validation {
     condition     = contains(["1.17", "1.16", "1.15"], var.kubernetes_version)
     error_message = "Kubernetes version provided is not supported."
-  }
-}
-
-variable "subnets" {
-  type        = list(string)
-  description = "A list of subnet IDs to associate with the EKS cluster."
-
-  validation {
-    condition     = length(var.subnets) > 0
-    error_message = "Atleast one subnet must be specified for the cluster."
   }
 }
 
