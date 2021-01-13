@@ -79,3 +79,9 @@ variable "svc_account_key" {
       error_message = "The service account key is not in base64 encoded format."
   }
 }
+
+variable "kubernetes_version" {
+  type        = string
+  default     = "latest"
+  description = "Kubernetes version to use for the GKE cluster."
+}

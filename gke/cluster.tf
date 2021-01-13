@@ -1,6 +1,20 @@
+locals {
+  master_version = var.kubernetes_version != "latest" ? var.kubernetes_version : data.google_container_engine_versions.region.latest_master_version
+  node_version = var.kubernetes_version != "latest" ? var.kubernetes_version : data.google_container_engine_versions.region.latest_node_version
+}
+
+data "google_container_engine_versions" "region" {
+  provider       = google-beta
+
+  location       = local.cluster_location
+  version_prefix = var.kubernetes_version
+}
+
 resource "google_container_cluster" "k8s_cluster" {
   name               = var.cluster_name
   location           = var.cluster_location
+
+  min_master_version = local.master_version
 
   # Create a node pool with one node and immediately delete it so that we can
   # use our own managed node pool.
@@ -34,7 +48,6 @@ resource "google_container_cluster" "k8s_cluster" {
 }
 
 resource "google_container_node_pool" "k8s_cluster" {
-  provider = google-beta
 
   depends_on = [
     google_compute_network.k8s_cluster_vpc,
@@ -44,6 +57,8 @@ resource "google_container_node_pool" "k8s_cluster" {
   name               = "${var.cluster_name}-np"
   location           = var.cluster_location
   cluster            = google_container_cluster.k8s_cluster.name
+
+  version = local.node_version
 
   node_locations = toset(var.node_zones)
 
@@ -57,11 +72,10 @@ resource "google_container_node_pool" "k8s_cluster" {
       node_metadata = "GKE_METADATA_SERVER"
     }
 
-    labels       = {
-      node-pool = "default"
+    labels = {
+      node-pool = "default-${var.cluster_name}"
+      cluster-name = var.cluster_name
     }
-
-    tags = ["iso-test-management-cluster"]
 
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",

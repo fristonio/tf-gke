@@ -10,15 +10,20 @@ the kubeconfig have clusterwide access.
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14.0 |
+| google | >= 3.52.0 |
+| google-beta | >= 3.52.0 |
+| kubernetes | >= 1.13.3 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | n/a |
-| google-beta | n/a |
-| kubernetes.gke\_cluster | n/a |
+| google | >= 3.52.0 |
+| google-beta | >= 3.52.0 |
+| kubernetes.gke\_cluster | >= 1.13.3 |
 | template | n/a |
 
 ## Inputs
@@ -27,6 +32,7 @@ No requirements.
 |------|-------------|------|---------|:--------:|
 | cluster\_location | Location to create the GKE clsuter in. | `string` | n/a | yes |
 | cluster\_name | Name of the GKE cluster. | `string` | n/a | yes |
+| kubernetes\_version | Kubernetes version to use for the GKE cluster. | `string` | `"latest"` | no |
 | node\_count | Number of worker nodes in the Kubernetes cluster. | `number` | `1` | no |
 | node\_image\_type | Image to use for the Kubernetes node | `string` | n/a | yes |
 | node\_machine\_type | GCP machine type to use for the Kubernetes cluster node | `string` | n/a | yes |
