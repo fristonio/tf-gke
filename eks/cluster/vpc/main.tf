@@ -31,8 +31,7 @@ module "vpc" {
   // Configure NAT for this VPC. Here we are configuring one NAT
   // instance for each availabilitiy zone configured for this VPC.
   enable_nat_gateway     = true
-  single_nat_gateway     = false
-  one_nat_gateway_per_az = true
+  one_nat_gateway_per_az = false
 
   enable_dns_hostnames = true
 
