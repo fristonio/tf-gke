@@ -1,3 +1,7 @@
+locals {
+  subnets = length(var.subnets) > 0 ? var.subnets : var.vpc_subnets[var.cluster_index]
+}
+
 resource "aws_iam_role" "eks_cluster" {
   name = var.cluster_name
 
@@ -35,7 +39,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   version  = var.kubernetes_version
 
   vpc_config {
-    subnet_ids = var.subnets
+    subnet_ids = local.subnets
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
