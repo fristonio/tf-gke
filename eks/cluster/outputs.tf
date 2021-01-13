@@ -14,8 +14,8 @@ output "cluster_kubeconfig" {
 apiVersion: v1
 clusters:
 - cluster:
-    certificate-authority-data: ${aws_eks_cluster.eks_cluster.certificate_authority[0].data}
-    server: ${aws_eks_cluster.eks_cluster.endpoint}
+    certificate-authority-data: ${data.aws_eks_cluster.cluster.certificate_authority[0].data}
+    server: ${data.aws_eks_cluster.cluster.endpoint}
   name: kube-client
 contexts:
 - context:

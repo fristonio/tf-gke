@@ -1,37 +1,3 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS region to use with the terraform module."
-
-  validation {
-    condition     = contains(["us-west-2", "us-east-2"], var.aws_region)
-    error_message = "AWS region must be from a predefined list for which we have subnets defined."
-  }
-}
-
-variable "aws_access_key" {
-  type        = string
-  description = "AWS access key to use with the terraform module."
-  sensitive   = true
-}
-
-variable "aws_secret_key" {
-  type        = string
-  description = "AWS secret key to use with the terraform module."
-  sensitive   = true
-}
-
-variable "vpc_configured" {
-  type        = bool
-  description = "Specifies if the VPC has already been created or not."
-  default     = false
-}
-
-variable "controlplane_configured" {
-  type        = bool
-  description = "Specifies if the K8s controlplane has already been created or not."
-  default     = false
-}
-
 variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster."
@@ -42,38 +8,16 @@ variable "cluster_name" {
   }
 }
 
-variable "cluster_index" {
-  type        = number
-  description = "Index of the cluster if using multiple clusters within the same VPC."
-  default     = 0
-
-  validation {
-    condition     = var.cluster_index >= 0 && var.cluster_index < 8
-    error_message = "A maximum of 8 clusters can be created within this vpc, index must be in [0, 8)."
-  }
-}
-
 variable "subnets" {
   type        = list(string)
   description = "A list of subnet IDs to associate with the EKS cluster node group."
-  default     = []
-}
-
-variable "vpc_cidr" {
-  type        = string
-  description = "CIDR to use for the VPC."
-  default     = "10.0.0.0/16"
-}
-
-variable "kubernetes_version" {
-  type        = string
-  description = "Kubernetes version to use for the EKS cluster."
 
   validation {
-    condition     = contains(["1.17", "1.16", "1.15"], var.kubernetes_version)
-    error_message = "Kubernetes version provided is not supported."
+    condition     = length(var.subnets) > 0
+    error_message = "Atleast one subnet must be specified for the cluster."
   }
 }
+
 
 variable "desired_size" {
   type        = number
@@ -131,7 +75,7 @@ variable "instance_type" {
   description = "Instance type to use for instance in the nodegroup."
 
   validation {
-    condition     = contains(["t3.medium", "t3.small", "t2.medium", "t2.large", "t3.large"], var.instance_type)
+    condition     = contains(["t3.small", "t3.medium", "t3.large", "t3.xlarge"], var.instance_type)
     error_message = "Instance type for the node should be from a predefined list of instance types."
   }
 }

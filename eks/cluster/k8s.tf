@@ -1,6 +1,15 @@
 data "aws_eks_cluster_auth" "cluster" {
+  depends_on = [ module.nodegroup ]
+
   name  = var.cluster_name
 }
+
+data "aws_eks_cluster" "cluster" {
+  depends_on = [ module.nodegroup ]
+
+  name  = var.cluster_name
+}
+
 
 provider "kubernetes" {
   alias  = "eks_cluster"

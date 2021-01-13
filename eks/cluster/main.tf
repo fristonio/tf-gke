@@ -3,13 +3,9 @@ locals {
 }
 
 module "nodegroup" {
-  source = "./../nodegroup"
+  source = "./nodegroup"
 
   depends_on = [ module.controlplane ]
-
-  aws_region     = var.aws_region
-  aws_access_key = var.aws_access_key
-  aws_secret_key = var.aws_secret_key
 
   cluster_name = var.cluster_name
   subnets      = local.cluster_subnet
@@ -24,15 +20,11 @@ module "nodegroup" {
 }
 
 module "controlplane" {
-  source = "./../controlplane"
+  source = "./controlplane"
 
   depends_on = [ module.vpc ]
 
-  count = var.contorlplane_configured ? 0 : 1 
-
-  aws_region     = var.aws_region
-  aws_access_key = var.aws_access_key
-  aws_secret_key = var.aws_secret_key
+  count = var.controlplane_configured ? 0 : 1 
 
   cluster_name = var.cluster_name
   subnets      = local.cluster_subnet
@@ -41,13 +33,9 @@ module "controlplane" {
 }
 
 module "vpc" {
-  source = "./../vpc"
+  source = "./vpc"
 
-  count = var.vpc_configured ? 0 : 1
-
-  aws_region     = var.aws_region
-  aws_access_key = var.aws_access_key
-  aws_secret_key = var.aws_secret_key
+  count = var.vpc_configured || var.controlplane_configured ? 0 : 1
 
   vpc_name       = "${var.cluster_name}-vpc"
   vpc_cidr       = var.vpc_cidr
