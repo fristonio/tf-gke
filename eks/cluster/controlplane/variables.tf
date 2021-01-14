@@ -13,7 +13,7 @@ variable "kubernetes_version" {
   description = "Kubernetes version to use for the EKS cluster."
 
   validation {
-    condition     = contains(["1.17", "1.16", "1.15"], var.kubernetes_version)
+    condition     = contains(["1.17", "1.16", "1.15", "latest"], var.kubernetes_version)
     error_message = "Kubernetes version provided is not supported."
   }
 }
