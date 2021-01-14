@@ -14,7 +14,7 @@ output "cluster_version" {
 }
 
 output "cluster_subnets" {
-  value       = var.subnets
+  value       = local.subnets
   description = "Subnets associated with the cluster."
 }
 
