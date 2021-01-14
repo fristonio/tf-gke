@@ -21,6 +21,8 @@ provider "kubernetes" {
 resource "kubernetes_service_account" "kubeconfig_sa" {
   provider = kubernetes.eks_cluster
 
+  depends_on = [ aws_eks_node_group.eks_ng ]
+
   metadata {
     name      = "cluster-access-client-ng-sa"
     namespace = "kube-system"
