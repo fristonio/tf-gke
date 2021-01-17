@@ -4,12 +4,12 @@ terraform {
   required_providers {
     google = {
       version = ">= 3.52.0"
-      source = "hashicorp/aws"
+      source = "hashicorp/google"
     }
 
     google-beta = {
       version = ">= 3.52.0"
-      source = "hashicorp/aws"
+      source = "hashicorp/google-beta"
     }
 
     kubernetes = {
@@ -18,7 +18,6 @@ terraform {
     }
   }
 }
-
 
 provider "google" {
   credentials = base64decode(var.svc_account_key)
