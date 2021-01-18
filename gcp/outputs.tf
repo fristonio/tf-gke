@@ -4,6 +4,6 @@ output "cluster_name" {
 }
 
 output "cluster_kubeconfig" {
-  value       = base64encode(tostring(data.google_storage_bucket_object_content.kubeconfig.content))
+  value       = base64encode(data.http.kubeconfig.body)
   description = "Kubeconfig to access the kubernetes cluster."
 }

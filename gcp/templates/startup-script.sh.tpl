@@ -342,8 +342,8 @@ kubeadm init phase kubeconfig all --config config.yaml
 
 # Upload the certs created to the cloud storage configured for
 # the cluster.
-gsutil cp -r /etc/kubernetes/pki ${cluster_bucket}
-gsutil cp /etc/kubernetes/admin.conf ${cluster_bucket}
+gsutil -h "Content-Type:text/plain" cp -r /etc/kubernetes/pki ${cluster_bucket}
+gsutil -h "Content-Type:text/plain" cp /etc/kubernetes/admin.conf ${cluster_bucket}
 
 kubeadm init --config config.yaml
 %{ else }

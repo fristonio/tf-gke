@@ -14,11 +14,28 @@ resource "null_resource" "apiserver_ready" {
   }
 }
 
-data "google_storage_bucket_object_content" "kubeconfig" {
+data "google_storage_object_signed_url" "kubeconfig" {
   depends_on = [ 
     null_resource.apiserver_ready
   ]
 
-  name   = "admin.conf"
+  path   = "admin.conf"
   bucket = google_storage_bucket.cluster.name
+
+  duration = "5m"
 }
+
+data "http" "kubeconfig" {
+  url = data.google_storage_object_signed_url.kubeconfig.signed_url
+}
+
+# This gives null content when called first and only have the actual content
+# after the refresh.
+# data "google_storage_bucket_object_content" "kubeconfig" {
+#   depends_on = [
+#     null_resource.apiserver_ready
+#   ]
+
+#   name   = "admin.conf"
+#   bucket = google_storage_bucket.cluster.name
+# }
