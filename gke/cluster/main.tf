@@ -1,11 +1,15 @@
 module "vpc" {
   source = "./vpc"
 
+  count = var.vpc_configured ? 0 : 1
+
   vpc_name = var.vpc_name
 }
 
 module "controlplane" {
   source = "./controlplane"
+
+  count = var.controlplane_configured ? 0 : 1
 
   depends_on = [ module.vpc ]
 
