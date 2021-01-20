@@ -7,11 +7,6 @@ terraform {
       source = "hashicorp/google"
     }
 
-    google-beta = {
-      version = ">= 3.52.0"
-      source = "hashicorp/google-beta"
-    }
-
     kubernetes = {
       version = ">= 1.13.3"
       source = "hashicorp/kubernetes"
@@ -20,12 +15,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = base64decode(var.svc_account_key)
-  project     = var.project_id
-  region      = var.cluster_location
-}
-
-provider "google-beta" {
   credentials = base64decode(var.svc_account_key)
   project     = var.project_id
   region      = var.cluster_location
