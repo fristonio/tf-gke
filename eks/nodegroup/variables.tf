@@ -40,7 +40,6 @@ variable "subnets" {
   }
 }
 
-
 variable "desired_size" {
   type        = number
   description = "Desired size of the EKS cluster node pool."

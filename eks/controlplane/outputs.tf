@@ -1,25 +1,20 @@
 output "cluster_name" {
-  value       = var.cluster_name
+  value       = module.controlplane.cluster_name
   description = "Name of the created EKS cluster"
 }
 
-output "configured" {
-  value       = aws_eks_cluster.eks_cluster.id != ""
-  description = "Dummy output variable to specify if the K8s controlplane was configured."
-}
-
 output "cluster_version" {
-  value       = aws_eks_cluster.eks_cluster.version
+  value       = module.controlplane.cluster_version
   description = "Version of the created EKS cluster"
 }
 
 output "cluster_subnets" {
-  value       = local.subnets
+  value       = module.controlplane.cluster_subnets
   description = "Subnets associated with the cluster."
 }
 
 output "cluster_endpoint" {
-  value       = aws_eks_cluster.eks_cluster.endpoint
+  value       = module.controlplane.cluster_endpoint
   description = "Endpoint for the created EKS cluster."
   sensitive   = true
 }

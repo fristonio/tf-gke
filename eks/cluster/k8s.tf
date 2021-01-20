@@ -10,7 +10,6 @@ data "aws_eks_cluster" "cluster" {
   name  = var.cluster_name
 }
 
-
 provider "kubernetes" {
   alias  = "eks_cluster"
 

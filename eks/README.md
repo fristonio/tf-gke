@@ -14,7 +14,8 @@ meets all the requirements for an EKS cluster, listed
 
 ## Cluster
 
-Module for creating EKS cluster on AWS.
+Module for creating EKS cluster on AWS. The individual modules are useful when creating
+the cluster in steps.
 
 ### K8s controlplane
 

@@ -43,17 +43,9 @@ variable "kubernetes_version" {
 variable "subnets" {
   type        = list(string)
   description = "A list of subnet IDs to associate with the EKS cluster."
-  default     = []
-}
 
-variable "vpc_subnets" {
-  type        = list(list(string))
-  description = "A list of cluster subnets IDs for a pool of EKS cluster."
-  default     = [[]]
-}
-
-variable "cluster_index" {
-  type        = number
-  description = "Index in the vpc_subnets list to use as cluster subnet."
-  default     = 0
+  validation {
+    condition     = length(var.subnets) > 0
+    error_message = "Atleast one subnet must be specified for the cluster."
+  }
 }
