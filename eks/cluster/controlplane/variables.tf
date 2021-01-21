@@ -3,8 +3,8 @@ variable "cluster_name" {
   description = "Name of the EKS cluster."
 
   validation {
-    condition     = length(var.cluster_name) > 6 && length(var.cluster_name) < 32
-    error_message = "Length of the name of the cluster shoud be from 6 characters to 32 characters."
+    condition     = length(var.cluster_name) > 5 && length(var.cluster_name) < 64
+    error_message = "Length of the name of the cluster shoud be from 5 characters to 64 characters."
   }
 }
 

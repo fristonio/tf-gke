@@ -18,8 +18,8 @@ variable "vpc_name" {
   description = "Name of the VPC for the k8s cluster."
 
   validation {
-    condition     = length(var.vpc_name) > 5 && length(var.vpc_name) < 32
-    error_message = "Length of the name of the cluster shoud be from 6 characters to 32 characters."
+    condition     = length(var.vpc_name) > 5 && length(var.vpc_name) < 64
+    error_message = "Length of the name of the cluster shoud be from 6 characters to 64 characters."
   }
 }
 
@@ -34,8 +34,8 @@ variable "cluster_name" {
   description = "Name of the Kubernetes cluster."
 
   validation {
-    condition     = length(var.cluster_name) > 5 && length(var.cluster_name) < 32
-    error_message = "Length of the name of the cluster shoud be from 6 characters to 32 characters."
+    condition     = length(var.cluster_name) > 5 && length(var.cluster_name) < 64
+    error_message = "Length of the name of the cluster shoud be from 6 characters to 64 characters."
   }
 }
 

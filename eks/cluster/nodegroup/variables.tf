@@ -3,8 +3,8 @@ variable "cluster_name" {
   description = "Name of the EKS cluster."
 
   validation {
-    condition     = length(var.cluster_name) > 6 && length(var.cluster_name) < 32
-    error_message = "Length of the name of the cluster shoud be from 6 characters to 32 characters."
+    condition     = length(var.cluster_name) > 20 && length(var.cluster_name) < 64
+    error_message = "Length of the name of the cluster shoud be from 20 characters to 64 characters."
   }
 }
 
@@ -24,8 +24,8 @@ variable "desired_size" {
   description = "Desired size of the EKS cluster node pool."
 
   validation {
-    condition     = var.desired_size < 5 && var.desired_size > 0
-    error_message = "Desired size of the nodegroup should be between (0, 5)."
+    condition     = var.desired_size < 20 && var.desired_size > 0
+    error_message = "Desired size of the nodegroup should be between (0, 20)."
   }
 }
 
@@ -34,8 +34,8 @@ variable "max_size" {
   description = "Maximum size of the EKS cluster node group."
 
   validation {
-    condition     = var.max_size < 5 && var.max_size > 0
-    error_message = "Max size of the nodegroup should be between (0, 5)."
+    condition     = var.max_size < 20 && var.max_size > 0
+    error_message = "Max size of the nodegroup should be between (0, 20)."
   }
 }
 
@@ -44,8 +44,8 @@ variable "min_size" {
   description = "Minimum size of the EKS cluster node group."
 
   validation {
-    condition     = var.min_size < 5 && var.min_size > 0
-    error_message = "Min size of the nodegroup should be between (0, 5)."
+    condition     = var.min_size < 20 && var.min_size > 0
+    error_message = "Min size of the nodegroup should be between (0, 20)."
   }
 }
 
