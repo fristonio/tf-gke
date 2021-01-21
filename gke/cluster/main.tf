@@ -1,7 +1,7 @@
 module "vpc" {
   source = "./vpc"
 
-  count = var.vpc_configured ? 0 : 1
+  count = var.vpc_configured || var.controlplane_configured ? 0 : 1
 
   vpc_name = var.vpc_name
 }
