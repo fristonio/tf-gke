@@ -27,3 +27,8 @@ EOT
 )
   description = "Kubeconfig to access the kubernetes cluster."
 }
+
+output "cluster_cidr" {
+  value       = module.nodepool.cluster_cidr
+  description = "IPv4 CIDR for the created Kubernetes cluster."
+}

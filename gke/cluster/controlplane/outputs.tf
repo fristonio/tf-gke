@@ -17,3 +17,8 @@ output "configured" {
   value       = google_container_cluster.k8s_cluster.name != ""
   description = "Indicator of whether the cluster was created or not."
 }
+
+output "cluster_cidr" {
+  value       = google_container_cluster.k8s_cluster.cluster_ipv4_cidr
+  description = "IPv4 CIDR for the created Kubernetes cluster."
+}
