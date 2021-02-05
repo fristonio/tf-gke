@@ -12,5 +12,6 @@ terraform {
 provider "google" {
   credentials = base64decode(var.svc_account_key)
 
-  project     = var.project_id
+  project = var.project_id
+  region  = var.region
 }

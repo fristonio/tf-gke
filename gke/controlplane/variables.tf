@@ -13,6 +13,11 @@ variable "svc_account_key" {
   }
 }
 
+variable "region" {
+  type        = string
+  description = "GCP region to use with the provider."
+}
+
 variable "cluster_location" {
   type        = string
   description = "Location to create the GKE clsuter in."

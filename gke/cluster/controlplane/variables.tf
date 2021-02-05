@@ -13,6 +13,11 @@ variable "vpc_name" {
   }
 }
 
+variable "cluster_subnet" {
+  type        = string
+  description = "Subnet to associate the cluster in."
+}
+
 variable "cluster_location" {
   type        = string
   description = "Location to create the GKE clsuter in."
