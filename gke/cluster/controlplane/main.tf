@@ -16,10 +16,6 @@ resource "google_container_cluster" "k8s_cluster" {
 
   network            = var.vpc_name
 
-  # The subnet should have the same name as the region for the
-  # k8s cluster.
-  subnetwork         = var.cluster_location
-
   master_auth {
     username = ""
     password = ""

@@ -1,11 +1,6 @@
 variable "cluster_location" {
   type        = string
   description = "Location to create the GKE clsuter in."
-
-  validation {
-    condition     = contains(["us-central1", "us-east1", "us-west1"], var.cluster_location)
-    error_message = "Cluster location must be from a predefined list for which we have subnets defined."
-  }
 }
 
 variable "cluster_name" {
