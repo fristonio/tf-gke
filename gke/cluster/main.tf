@@ -1,3 +1,7 @@
+locals {
+  default_nodes_count = var.use_default_nodepool ? var.node_count : 1
+}
+
 module "vpc" {
   source = "./vpc"
 
@@ -19,10 +23,16 @@ module "controlplane" {
   cluster_location   = var.cluster_location
   cluster_name       = var.cluster_name
   kubernetes_version = var.kubernetes_version
+
+  remove_default_node_pool = !var.use_default_nodepool
+  default_nodes_count      = local.default_nodes_count
 }
 
 module "nodepool" {
   source = "./nodepool"
+
+  // Only create this nodepool if we are not using the default nodepool.
+  count = var.use_default_nodepool ? 0 : 1
 
   depends_on = [ module.controlplane ]
 

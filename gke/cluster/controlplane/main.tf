@@ -1,3 +1,7 @@
+locals {
+  initial_node_count = var.remove_default_node_pool ? 1 : var.default_nodes_count
+}
+
 data "google_container_engine_versions" "cluster" {
   location       = var.cluster_location
   version_prefix = var.kubernetes_version != "latest" ? var.kubernetes_version : ""
@@ -9,10 +13,8 @@ resource "google_container_cluster" "k8s_cluster" {
 
   min_master_version = data.google_container_engine_versions.cluster.latest_master_version
 
-  # Create a node pool with one node and immediately delete it so that we can
-  # use our own managed node pool.
-  initial_node_count = 1
-  remove_default_node_pool = true
+  initial_node_count       = local.initial_node_count
+  remove_default_node_pool = var.remove_default_node_pool
 
   network = var.vpc_name
 

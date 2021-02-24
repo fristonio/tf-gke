@@ -48,3 +48,15 @@ variable "kubernetes_version" {
   default     = "latest"
   description = "Kubernetes version to use for the GKE cluster."
 }
+
+variable "default_nodes_count" {
+  type        = number
+  default     = 1
+  description = "Number of nodes in the default node pool of the cluster."
+}
+
+variable "remove_default_node_pool" {
+  type        = bool
+  default     = true
+  description = "Specifies if we should remove the deafult node pool from the cluster."
+}

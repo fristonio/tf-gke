@@ -35,6 +35,12 @@ variable "controlplane_configured" {
   default     = false
 }
 
+variable "use_default_nodepool" {
+  type        = bool
+  default     = false
+  description = "Specifies if we should use the deafult node pool for the cluster."
+}
+
 variable "vpc_name" {
   type        = string
   description = "VPC to create the GKE cluster in."
