@@ -39,10 +39,16 @@ variable "kubernetes_version" {
   description = "Kubernetes version to use for the GKE cluster."
 }
 
+variable "default_node_zones" {
+  type        = list(string)
+  default     = []
+  description = "List of zones to launch the nodes in."
+}
+
 variable "default_nodes_count" {
   type        = number
   default     = 1
-  description = "Number of nodes in the default node pool of the cluster."
+  description = "Number of nodes in the default node pool of the cluster(This is per zone)."
 }
 
 variable "remove_default_node_pool" {

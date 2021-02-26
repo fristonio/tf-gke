@@ -1,5 +1,6 @@
 locals {
   default_nodes_count = var.use_default_nodepool ? var.node_count : 1
+  default_node_zones = var.use_default_nodepool ? var.node_zones : []
 }
 
 module "vpc" {
@@ -26,6 +27,8 @@ module "controlplane" {
 
   remove_default_node_pool = !var.use_default_nodepool
   default_nodes_count      = local.default_nodes_count
+
+  default_node_zones = local.default_node_zones
 }
 
 module "nodepool" {

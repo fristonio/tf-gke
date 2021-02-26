@@ -72,7 +72,7 @@ variable "node_image_type" {
 variable "node_count" {
   type        = number
   default     = 1
-  description = "Number of worker nodes in the Kubernetes cluster."
+  description = "Number of worker nodes in the Kubernetes cluster(This is per zone)."
 
   validation {
     condition     = var.node_count > 0 && var.node_count < 100

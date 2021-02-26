@@ -15,6 +15,7 @@ resource "google_container_cluster" "k8s_cluster" {
 
   initial_node_count       = local.initial_node_count
   remove_default_node_pool = var.remove_default_node_pool
+  node_locations           = var.default_node_zones
 
   network = var.vpc_name
 
