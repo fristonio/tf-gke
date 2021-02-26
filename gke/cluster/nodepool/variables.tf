@@ -1,8 +1,3 @@
-variable "cluster_location" {
-  type        = string
-  description = "Location to create the GKE clsuter in."
-}
-
 variable "cluster_name" {
   type        = string
   description = "Name of the GKE cluster."
@@ -13,6 +8,11 @@ variable "cluster_name" {
   }
 }
 
+variable "location" {
+  type        = string
+  description = "Location to create the GKE cluster nodepool in."
+}
+
 variable "kubernetes_version" {
   type        = string
   default     = "latest"
@@ -20,13 +20,9 @@ variable "kubernetes_version" {
 }
 
 variable "node_zones" {
-  type    = list(string)
+  type        = list(string)
   description = "A list of zones in the location provided in which to launch the nodes."
-
-  validation {
-    condition     = length(var.node_zones) < 4 && length(var.node_zones) > 0
-    error_message = "The number of availability zones must be between [0, 3]."
-  }
+  default     = []
 }
 
 variable "node_machine_type" {

@@ -1,6 +1,8 @@
 data "google_client_config" "default" {}
 
 data "google_container_cluster" "k8s_cluster" {
+  depends_on = [ module.nodepool ]
+
   name               = var.cluster_name
   location           = var.cluster_location
 }

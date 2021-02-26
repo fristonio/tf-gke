@@ -1,11 +1,11 @@
 data "google_container_engine_versions" "cluster" {
-  location       = var.cluster_location
+  location       = var.location
   version_prefix = var.kubernetes_version != "latest" ? var.kubernetes_version : ""
 }
 
 resource "google_container_node_pool" "k8s_cluster" {
   name               = "${var.cluster_name}-np"
-  location           = var.cluster_location
+  location           = var.location
   cluster            = var.cluster_name
 
   version = data.google_container_engine_versions.cluster.latest_master_version
