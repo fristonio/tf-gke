@@ -1,11 +1,6 @@
 variable "aws_region" {
   type        = string
   description = "AWS region to use with the terraform module."
-
-  validation {
-    condition     = contains(["us-west-2", "us-east-2"], var.aws_region)
-    error_message = "AWS region must be from a predefined list for which we have subnets defined."
-  }
 }
 
 variable "aws_access_key" {
