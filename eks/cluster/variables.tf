@@ -50,7 +50,7 @@ variable "cluster_index" {
 
 variable "subnets" {
   type        = list(string)
-  description = "A list of subnet IDs to associate with the EKS cluster node group."
+  description = "A list of subnet IDs to associate with the EKS cluster."
   default     = []
 }
 

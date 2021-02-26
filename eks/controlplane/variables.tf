@@ -35,12 +35,28 @@ variable "kubernetes_version" {
   }
 }
 
+// One of vpc_clusters_subnets or subnets must be provided. If vpc_clusters_subents
+// is provided, a cluster_index must also be provided. This cluster index will be used
+// to select the subnet from the list in the vpc_clusters_subnets.
+variable "cluster_index" {
+  type        = number
+  description = "Index of the cluster for getting subnet, if using multiple clusters within the same VPC."
+  default     = 0
+
+  validation {
+    condition     = var.cluster_index >= 0 && var.cluster_index < 8
+    error_message = "A maximum of 8 clusters can be created within this vpc, index must be in [0, 8)."
+  }
+}
+
+variable "vpc_clusters_subnets" {
+  type        = list(list(string))
+  description = "A list of subnets in the VPC that can be used to create EKS clusters."
+  default     = [[]]
+}
+
 variable "subnets" {
   type        = list(string)
   description = "A list of subnet IDs to associate with the EKS cluster."
-
-  validation {
-    condition     = length(var.subnets) > 0
-    error_message = "Atleast one subnet must be specified for the cluster."
-  }
+  default     = []
 }

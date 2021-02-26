@@ -35,7 +35,7 @@ module "controlplane" {
 module "vpc" {
   source = "./vpc"
 
-  count = var.vpc_configured || var.controlplane_configured ? 0 : 1
+  count = var.vpc_configured || var.controlplane_configured || length(var.subnets) > 0 ? 0 : 1
 
   vpc_name       = "${var.cluster_name}-vpc"
   vpc_cidr       = var.vpc_cidr
